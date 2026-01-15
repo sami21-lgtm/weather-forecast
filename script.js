@@ -2,6 +2,10 @@ const API_KEY = 'a583481b0d44a588d10f31b85e1a5df6'; // Replace
 const searchInput = document.getElementById('searchInput');
 const themeToggle = document.getElementById('themeToggle');
 const manIcon = document.getElementById('manIcon');
+const digitalTime = document.getElementById('digitalTime');
+const digitalDate = document.getElementById('digitalDate');
+const currentYear = document.getElementById('currentYear');
+const miniMap = document.getElementById('miniMap');
 
 // Theme
 if (localStorage.getItem('theme') === 'dark') {
@@ -20,6 +24,16 @@ manIcon.addEventListener('click', () => {
   manIcon.classList.add('clicked');
   setTimeout(() => manIcon.classList.remove('clicked'), 500);
 });
+
+// Digital Time & Date
+function updateDateTime() {
+  const now = new Date();
+  digitalTime.textContent = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+  digitalDate.textContent = now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+  currentYear.textContent = now.getFullYear();
+}
+setInterval(updateDateTime, 1000);
+updateDateTime();
 
 // Voice
 function startVoiceSearch() {
@@ -55,6 +69,7 @@ async function fetchWeatherByCity(city) {
   const { lat, lon } = data.coord;
   fetchSunMoon(lat, lon);
   fetch30Days(lat, lon);
+  updateMiniMap(lat, lon);
   notifyIfChanged(data);
 }
 
@@ -64,6 +79,7 @@ async function fetchWeatherByCoords(lat, lon) {
   displayCurrent(data);
   fetchSunMoon(lat, lon);
   fetch30Days(lat, lon);
+  updateMiniMap(lat, lon);
   notifyIfChanged(data);
 }
 
@@ -84,8 +100,8 @@ async function fetchSunMoon(lat, lon) {
 }
 
 function displaySunMoon(data) {
-  const sunrise = new Date(data.current.sunrise * 1000).toLocaleTimeString();
-  const sunset = new Date(data.current.sunset * 1000).toLocaleTimeString();
+  const sunrise = new Date(data.current.sunrise * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+  const sunset = new Date(data.current.sunset * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
   const moonPhase = data.daily[0].moon_phase;
   let moonIcon = 'fa-moon';
   if (moonPhase < 0.25) moonIcon = 'fa-moon';
@@ -135,6 +151,12 @@ async function fetch30Days(lat, lon) {
     `;
   }).join('');
   document.getElementById('forecast30').innerHTML = html;
+}
+
+// Update Mini Map
+function updateMiniMap(lat, lon) {
+  const src = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.904745562371!2d${lon}!3d${lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z${lat}!3m2!1sen!2sbd!4v${Date.now()}`;
+  miniMap.src = src;
 }
 
 // Browser Notification
