@@ -51,7 +51,7 @@ body.dark .bg-cover {
   gap: 15px;
 }
 
-/* 🔧 গ্লোব + ম্যান সাইজ বড় করা */
+/* গ্লোব + ম্যান সাইজ বড় */
 .globe {
   font-size: 70px;
   animation: rotate 10s linear infinite;
@@ -170,7 +170,7 @@ body.dark .umbrella {
 }
 
 .sun-moon-box {
-  margin-top: 20px;
+  margin-bottom: 15px;
   text-align: center;
 }
 
@@ -183,7 +183,7 @@ body.dark .umbrella {
 }
 
 .sun-moon-content i {
-  font-size: 24px;
+  font-size: 28px;
   margin-bottom: 5px;
 }
 
@@ -218,8 +218,10 @@ body.dark .umbrella {
   right: 0;
   padding: 10px;
   text-align: center;
-  font-size: 12px;
-  opacity: 0.7;
+  font-size: 14px;
+  color: #fff;
+  opacity: 0.8;
+  z-index: 5;
 }
 
 @media (max-width: 768px) {
