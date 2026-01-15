@@ -11,6 +11,30 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; font-family: 'Segoe 
   z-index: -2;
 }
 
+/* ---------- DARK/LIGHT THEME ---------- */
+body.dark {
+  filter: brightness(0.5);
+}
+
+body.light {
+  filter: brightness(0.7);
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  backdrop-filter: blur(5px);
+}
+
 /* ---------- TOP BAR ---------- */
 .top-bar {
   position: fixed;
