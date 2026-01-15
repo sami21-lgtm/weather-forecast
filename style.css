@@ -16,20 +16,21 @@ html, body {
 .bg-cover {
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+  background: linear-gradient(45deg, #ff0080, #ff8c00, #ffd700, #00ff80, #0080ff, #8000ff, #ff0080);
+  background-size: 400% 400%;
   z-index: -2;
-  animation: gradientShift 15s ease infinite;
-  background-size: 200% 200%;
+  animation: rainbow 10s ease infinite;
+}
+
+@keyframes rainbow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 body.dark .bg-cover {
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-}
-
-@keyframes gradientShift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  animation: none;
 }
 
 .top-bar {
@@ -47,11 +48,12 @@ body.dark .bg-cover {
 .logo-area {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
 }
 
+/* 🔧 গ্লোব + ম্যান সাইজ বড় করা */
 .globe {
-  font-size: 50px;
+  font-size: 70px;
   animation: rotate 10s linear infinite;
 }
 
@@ -81,7 +83,7 @@ body.dark .bg-cover {
 }
 
 .man {
-  font-size: 50px;
+  font-size: 70px;
   color: #fff;
   animation: bounce 2s infinite;
 }
@@ -92,10 +94,10 @@ body.dark .man {
 
 .umbrella {
   position: absolute;
-  top: -15px;
+  top: -25px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 24px;
+  font-size: 30px;
   color: #ff4081;
 }
 
@@ -109,9 +111,8 @@ body.dark .umbrella {
 }
 
 .logo-text {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
-  margin-left: 10px;
 }
 
 .controls {
@@ -168,6 +169,24 @@ body.dark .umbrella {
   margin: 10px 0;
 }
 
+.sun-moon-box {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.sun-moon-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.sun-moon-content i {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
 .forecast-30day {
   overflow-y: auto;
   max-height: 80vh;
@@ -192,12 +211,12 @@ body.dark .umbrella {
   width: 30px;
 }
 
-.bottom-bar {
+.footer {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 10px 30px;
+  padding: 10px;
   text-align: center;
   font-size: 12px;
   opacity: 0.7;
