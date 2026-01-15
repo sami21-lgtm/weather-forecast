@@ -1,103 +1,596 @@
 /* ---------- RESET ---------- */
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
 html, body { width: 100vw; height: 100vh; overflow: hidden; font-family: 'Segoe UI', sans-serif; color: #fff; }
 
-/* ---------- BACKGROUND (আপনার ফেস পরিষ্কার দেখার জন্য) ---------- */
+
+
+/* ---------- BACKGROUND ---------- */
+
 .bg-cover {
+
   position: fixed;
+
   inset: 0;
+
   background: url('590767156_860519166891739_2633869132777924248_n.jpg') center/cover no-repeat;
-  filter: brightness(1.1); /* ছবি উজ্জ্বল করা হয়েছে */
+
+  filter: brightness(0.7);
+
   z-index: -2;
+
 }
+
+
+
+/* ---------- DARK/LIGHT + RAINBOW THEME ---------- */
+
+body.dark {
+
+  filter: brightness(0.5);
+
+}
+
+
+
+body.light {
+
+  filter: brightness(0.7);
+
+}
+
+
+
+body.rainbow {
+
+  background: linear-gradient(45deg, #ff0080, #ff8c00, #ffd700, #00ff80, #0080ff, #8000ff, #ff0080);
+
+  background-size: 400% 400%;
+
+  animation: rainbow 10s ease infinite;
+
+}
+
+
+
+@keyframes rainbow {
+
+  0% { background-position: 0% 50%; }
+
+  50% { background-position: 100% 50%; }
+
+  100% { background-position: 0% 50%; }
+
+}
+
+
 
 /* ---------- TOP CONTROLS ---------- */
+
 .top-controls {
+
   position: fixed;
+
   top: 10px;
+
   right: 15px;
+
   z-index: 100;
+
   display: flex;
+
   gap: 10px;
+
 }
 
-/* ---------- LOGO & SEARCH (ছবির মতো উপরে) ---------- */
+
+
+.theme-toggle {
+
+  background: rgba(0, 0, 0, 0.3);
+
+  border: none;
+
+  border-radius: 50%;
+
+  padding: 10px;
+
+  color: #fff;
+
+  cursor: pointer;
+
+  font-size: 18px;
+
+  backdrop-filter: blur(5px);
+
+}
+
+
+
+.color-picker {
+
+  background: rgba(0, 0, 0, 0.3);
+
+  padding: 6px 10px;
+
+  border-radius: 20px;
+
+  backdrop-filter: blur(5px);
+
+}
+
+
+
+.color-picker select {
+
+  background: rgba(255, 255, 255, 0.2);
+
+  color: #fff;
+
+  border: none;
+
+  border-radius: 15px;
+
+  padding: 6px 10px;
+
+  font-size: 14px;
+
+}
+
+
+
+/* ---------- LOGO BAR – ছবির মতো উপরে ---------- */
+
 .logo-bar {
+
   position: fixed;
+
   top: 20px;
+
   left: 50%;
+
   transform: translateX(-50%);
+
   display: flex;
+
   align-items: center;
+
   gap: 10px;
+
   z-index: 10;
+
 }
 
-.logo-text { font-size: 28px; font-weight: bold; }
+
+
+.globe {
+
+  font-size: 52px;
+
+  animation: rotate 10s linear infinite;
+
+}
+
+
+
+@keyframes rotate {
+
+  from { transform: rotate(0deg); }
+
+  to { transform: rotate(360deg); }
+
+}
+
+
+
+.man-icon {
+
+  position: relative;
+
+  cursor: pointer;
+
+}
+
+
+
+.man {
+
+  font-size: 52px;
+
+  animation: bounce 2s infinite;
+
+}
+
+
+
+@keyframes bounce {
+
+  0%, 100% { transform: translateY(0); }
+
+  50% { transform: translateY(-8px); }
+
+}
+
+
+
+.umbrella {
+
+  position: absolute;
+
+  top: -18px;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  font-size: 24px;
+
+  color: #ff4081;
+
+}
+
+
+
+.logo-text {
+
+  font-size: 32px;
+
+  font-weight: bold;
+
+  letter-spacing: 1.5px;
+
+}
+
+
+
+/* ---------- SEARCH BAR – ছবির মতো উপরে ---------- */
 
 .search-bar {
+
   position: fixed;
-  top: 85px;
+
+  top: 90px;
+
   left: 50%;
+
   transform: translateX(-50%);
+
   display: flex;
+
   gap: 10px;
+
+  align-items: center;
+
   z-index: 10;
+
 }
+
+
 
 .search-bar input {
-  padding: 10px 15px;
-  border-radius: 20px;
+
+  padding: 14px 18px;
+
   border: none;
+
+  border-radius: 25px;
+
+  outline: none;
+
   background: rgba(255, 255, 255, 0.2);
+
   color: #fff;
+
+  font-size: 18px;
+
   backdrop-filter: blur(5px);
+
 }
 
-/* ---------- MAIN LAYOUT (বক্স ছোট এবং স্বচ্ছ) ---------- */
-.main-grid {
-  display: flex; /* গ্রিডের বদলে ফ্লেক্স ব্যবহার করে বক্সগুলোকে দুই পাশে সরানো হয়েছে */
-  justify-content: space-around;
-  padding: 160px 20px 20px;
-  align-items: start;
+
+
+.search-bar button {
+
+  padding: 14px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.2);
+
+  color: #fff;
+
+  cursor: pointer;
+
+  font-size: 20px;
+
+  backdrop-filter: blur(5px);
+
+  transition: transform 0.2s;
+
 }
+
+
+
+.search-bar button:hover {
+
+  transform: scale(1.1);
+
+}
+
+
+
+/* ---------- MAIN GRID ---------- */
+
+.main-grid {
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 20px;
+
+  padding: 180px 20px 40px;
+
+  height: calc(100vh - 120px);
+
+}
+
+
 
 .glass {
-  background: rgba(0, 0, 0, 0.25); /* অনেক বেশি স্বচ্ছ বক্স */
-  backdrop-filter: blur(3px); /* ঝাপসা কমানো হয়েছে যাতে ফেস পরিষ্কার দেখা যায় */
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 15px;
-  width: 280px; /* বক্সের সাইজ ছোট করা হয়েছে */
+
+  background: rgba(255, 255, 255, 0.15);
+
+  backdrop-filter: blur(12px);
+
+  border-radius: 20px;
+
+  padding: 25px;
+
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+
 }
 
-/* ফোরকাস্ট কার্ড ছোট এবং লিস্ট স্টাইল */
-.forecast-card {
-  background: rgba(255, 255, 255, 0.05);
-  margin-bottom: 6px;
-  padding: 8px;
-  border-radius: 8px;
-  font-size: 11px;
+
+
+.left-panel {
+
+  text-align: center;
+
+}
+
+
+
+.digital-time {
+
+  font-size: 32px;
+
+  font-weight: bold;
+
+  margin-bottom: 4px;
+
+}
+
+
+
+.digital-date {
+
+  font-size: 18px;
+
+  opacity: 0.8;
+
+}
+
+
+
+.temp-box {
+
   display: flex;
+
   align-items: center;
-  justify-content: space-between;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  margin: 15px 0;
+
 }
 
-.forecast-card img { width: 25px; }
+
+
+.sun-moon-icon {
+
+  font-size: 40px;
+
+  animation: pulse 2s infinite;
+
+}
+
+
+
+@keyframes pulse {
+
+  0%, 100% { transform: scale(1); }
+
+  50% { transform: scale(1.1); }
+
+}
+
+
+
+.temp {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  font-size: 36px;
+
+  font-weight: bold;
+
+}
+
+
+
+.temp img {
+
+  width: 44px;
+
+}
+
+
+
+.right-panel {
+
+  overflow-y: auto;
+
+}
+
+
+
+.forecast-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+
+  gap: 12px;
+
+  margin-top: 10px;
+
+}
+
+
+
+.forecast-card {
+
+  background: rgba(255, 255, 255, 0.1);
+
+  border-radius: 12px;
+
+  padding: 10px;
+
+  text-align: center;
+
+  font-size: 14px;
+
+}
+
+
+
+.forecast-card img {
+
+  width: 32px;
+
+}
+
+
+
+.map-box {
+
+  margin-top: 20px;
+
+}
+
+
 
 .map-box iframe {
+
   width: 100%;
-  height: 180px;
-  border-radius: 10px;
-  margin-top: 10px;
+
+  height: 260px;
+
+  border: 0;
+
+  border-radius: 14px;
+
 }
 
+
+
 .footer {
+
   position: fixed;
-  bottom: 10px;
-  width: 100%;
+
+  bottom: 0;
+
+  left: 0;
+
+  right: 0;
+
+  padding: 10px;
+
   text-align: center;
-  font-size: 14px;
-  opacity: 0.7;
+
+  font-size: 16px;
+
+  opacity: 0.8;
+
+  z-index: 5;
+
 }
+
+
+
+@media (max-width: 768px) {
+
+  .main-grid {
+
+    grid-template-columns: 1fr;
+
+    padding: 200px 15px 35px;
+
+    gap: 15px;
+
+  }
+
+  .logo-bar {
+
+    top: 15px;
+
+  }
+
+  .search-bar {
+
+    top: 80px;
+
+  }
+
+  .globe, .man {
+
+    font-size: 44px;
+
+  }
+
+  .logo-text {
+
+    font-size: 26px;
+
+  }
+
+  .search-bar input {
+
+    width: 180px;
+
+    font-size: 16px;
+
+  }
+
+  .temp {
+
+    font-size: 32px;
+
+  }
+
+  .sun-moon-icon {
+
+    font-size: 34px;
+
+  }
 
