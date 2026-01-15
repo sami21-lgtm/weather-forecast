@@ -6,12 +6,31 @@ const currentYear = document.getElementById('currentYear');
 const sunMoonIcon = document.getElementById('sunMoonIcon');
 const miniMap = document.getElementById('miniMap');
 
+// Dark/Light Toggle
+function toggleDarkLight() {
+  const body = document.body;
+  const icon = document.getElementById('themeIcon');
+  if (body.classList.contains('dark')) {
+    body.classList.remove('dark');
+    body.classList.add('light');
+    icon.className = 'fas fa-moon';
+  } else {
+    body.classList.remove('light');
+    body.classList.add('dark');
+    icon.className = 'fas fa-sun';
+  }
+}
+
 // Time & Date
 function updateDateTime() {
   const now = new Date();
   digitalTime.textContent = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true });
   digitalDate.textContent = now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
   currentYear.textContent = now.getFullYear();
+
+  // Sun/Moon Icon
+  const hour = now.getHours();
+  sunMoonIcon.textContent = (hour >= 6 && hour < 18) ? '🌞' : '🌙';
 }
 setInterval(updateDateTime, 1000);
 updateDateTime();
