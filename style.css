@@ -17,7 +17,7 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; font-family: 'Segoe 
   top: 0;
   left: 0;
   right: 0;
-  padding: 10px 20px;
+  padding: 12px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,7 +31,7 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; font-family: 'Segoe 
 }
 
 .globe {
-  font-size: 40px;
+  font-size: 44px;
   animation: rotate 10s linear infinite;
 }
 
@@ -46,7 +46,7 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; font-family: 'Segoe 
 }
 
 .man {
-  font-size: 40px;
+  font-size: 44px;
   animation: bounce 2s infinite;
 }
 
@@ -60,47 +60,47 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; font-family: 'Segoe 
   top: -15px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 20px;
+  font-size: 22px;
   color: #ff4081;
 }
 
 .logo-text {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
 }
 
 .controls {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   align-items: center;
 }
 
 .controls input {
-  padding: 8px 12px;
+  padding: 10px 14px;
   border: none;
-  border-radius: 20px;
+  border-radius: 25px;
   outline: none;
   background: rgba(255, 255, 255, 0.2);
   color: #fff;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .controls button {
-  padding: 8px;
+  padding: 10px;
   border: none;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.2);
   color: #fff;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .color-picker {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   background: rgba(0, 0, 0, 0.3);
-  padding: 4px 8px;
+  padding: 6px 10px;
   border-radius: 20px;
   backdrop-filter: blur(5px);
 }
@@ -110,25 +110,25 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; font-family: 'Segoe 
   color: #fff;
   border: none;
   border-radius: 15px;
-  padding: 4px 8px;
-  font-size: 12px;
+  padding: 6px 10px;
+  font-size: 14px;
 }
 
 /* ---------- MAIN GRID ---------- */
 .main-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  padding: 80px 20px 40px;
+  gap: 20px;
+  padding: 90px 20px 40px;
   height: calc(100vh - 120px);
 }
 
 .glass {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(12px);
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .left-panel {
@@ -136,13 +136,13 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; font-family: 'Segoe 
 }
 
 .digital-time {
-  font-size: 20px;
+  font-size: 28px;
   font-weight: bold;
-  margin-bottom: 3px;
+  margin-bottom: 4px;
 }
 
 .digital-date {
-  font-size: 12px;
+  font-size: 16px;
   opacity: 0.8;
 }
 
@@ -150,12 +150,12 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; font-family: 'Segoe 
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin: 10px 0;
+  gap: 12px;
+  margin: 15px 0;
 }
 
 .sun-moon-icon {
-  font-size: 28px;
+  font-size: 36px;
   animation: pulse 2s infinite;
 }
 
@@ -167,13 +167,13 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; font-family: 'Segoe 
 .temp {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 28px;
+  gap: 10px;
+  font-size: 32px;
   font-weight: bold;
 }
 
 .temp img {
-  width: 35px;
+  width: 40px;
 }
 
 .right-panel {
@@ -182,32 +182,32 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; font-family: 'Segoe 
 
 .forecast-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-  gap: 8px;
-  margin-top: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .forecast-card {
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 6px;
+  border-radius: 10px;
+  padding: 8px;
   text-align: center;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .forecast-card img {
-  width: 24px;
+  width: 28px;
 }
 
 .map-box {
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 .map-box iframe {
   width: 100%;
-  height: 150px;
+  height: 220px;
   border: 0;
-  border-radius: 10px;
+  border-radius: 12px;
 }
 
 .footer {
@@ -215,9 +215,9 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; font-family: 'Segoe 
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 8px;
+  padding: 10px;
   text-align: center;
-  font-size: 12px;
+  font-size: 14px;
   opacity: 0.8;
   z-index: 5;
 }
@@ -225,26 +225,26 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; font-family: 'Segoe 
 @media (max-width: 768px) {
   .main-grid {
     grid-template-columns: 1fr;
-    padding: 70px 15px 35px;
-    gap: 10px;
+    padding: 80px 15px 35px;
+    gap: 15px;
   }
   .top-bar {
-    padding: 8px 15px;
+    padding: 10px 15px;
   }
   .globe, .man {
-    font-size: 30px;
+    font-size: 34px;
   }
   .logo-text {
-    font-size: 16px;
+    font-size: 20px;
   }
   .controls input {
-    width: 120px;
-    font-size: 12px;
+    width: 140px;
+    font-size: 14px;
   }
   .temp {
-    font-size: 24px;
+    font-size: 28px;
   }
   .sun-moon-icon {
-    font-size: 24px;
+    font-size: 30px;
   }
 }
