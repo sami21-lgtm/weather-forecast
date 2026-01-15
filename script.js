@@ -121,7 +121,7 @@ async function fetch30Days(lat, lon) {
 
 // Mini Map
 function updateMiniMap(lat, lon) {
-  miniMap.src = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.904745562371!2d${lon}!3d${lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z${lat}!3m2!1sen!2sbd!4v${Date.now()}`;
+  miniMap.src = `https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3651.89!2d${lon}!3d${lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v${Date.now()}`;
 }
 
 // Theme Switch
