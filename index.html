@@ -3,23 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login – Emtiaz Hossain Sami</title>
+  <title>Digital Weather Globe</title>
   <link rel="stylesheet" href="style.css"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
 </head>
 <body>
   <div class="bg-cover" id="bgCover"></div>
 
-  <!-- 🔧 TIME & WEATHER WIDGET -->
-  <div class="top-widget">
-    <div class="time-date" id="timeDate"></div>
-    <div class="weather">
-      <span id="weatherIcon"><i class="fas fa-sun"></i></span>
-      <span id="temperature">--°C</span>
-    </div>
-  </div>
 
-  <!-- Theme picker -->
   <div class="color-picker">
     <label for="themeColor">🎨 Theme:</label>
     <select id="themeColor" onchange="changeTheme(this.value)">
@@ -33,105 +24,64 @@
     </select>
   </div>
 
-  <!-- LOGIN BOX -->
-  <div class="center-box" id="loginBox">
-    <div class="glass">
-      <div class="form-header">
-        <div class="man-icon" id="manIcon" title="Click me!">
-          <i class="fas fa-male man"></i>
-          <i class="fas fa-umbrella umbrella"></i>
-        </div>
-        <h2>Welcome Back</h2>
+  
+  <div class="top-bar">
+    <div class="logo-area">
+      <i class="fas fa-globe-americas globe"></i>
+      <div class="man-icon" id="manIcon" title="Click me!">
+        <i class="fas fa-male man"></i>
+        <i class="fas fa-umbrella umbrella"></i>
       </div>
+      <span class="logo-text">Digital Weather Globe</span>
+    </div>
 
-      <form id="loginForm">
-        <div class="input-group">
-          <i class="fas fa-user"></i>
-          <input type="text" id="username" placeholder="Username" required>
-        </div>
-
-        <div class="input-group">
-          <i class="fas fa-lock"></i>
-          <input type="password" id="password" placeholder="Password" required>
-        </div>
-
-        <button type="submit" class="login-btn">Login</button>
-
-        <div class="extra">
-          <label><input type="checkbox" id="remember"> Remember me</label>
-          <a href="#">Forgot password?</a>
-        </div>
-
-        <div class="percent-box">
-          <span class="percent-text">100%</span>
-        </div>
-      </form>
-
-      <button class="voice-btn" onclick="startVoiceInput()">
-        <i class="fas fa-microphone"></i> Voice Input
-      </button>
-
-      <p class="signup">Don't have an account? <a href="#">Sign up</a></p>
+    <div class="controls">
+      <input type="text" id="searchInput" placeholder="City, State, Country..." />
+      <button onclick="getWeather()"><i class="fas fa-search"></i></button>
+      <button class="voice-btn" onclick="startVoiceSearch()"><i class="fas fa-microphone"></i></button>
+      <button class="location-btn" onclick="getLocationWeather()"><i class="fas fa-location-arrow"></i></button>
+      <button id="themeToggle" class="theme-btn"><i class="fas fa-moon"></i></button>
     </div>
   </div>
 
-  <!-- PROFILE SECTION -->
-  <div id="profileSection" class="profile-section hidden">
-    <div class="glass profile-card">
-      <img src="https://i.imgur.com/8X8z9X1.jpg" alt="Sami" class="avatar-img"/>
-
-      <h2>Md. Emtiaz Hossain Sami</h2>
-      <p class="tagline">Full Stack Developer | Open Source Enthusiast</p>
-
-      <div class="section fade-in">
-        <h3><i class="fas fa-user"></i> About Me</h3>
-        <p>Assalamualikum, I'm Emtiaz Sami. I'm a passionate Full Stack Web Developer. I love building beautiful and functional web applications.</p>
+ 
+  <div class="main-grid">
+    <div class="glass left-panel">
+      <!-- ডিজিটাল ক্লক -->
+      <div class="icon-time-box">
+        <div class="digital-time" id="digitalTime">--:--</div>
+        <div class="digital-date" id="digitalDate">-- / -- / ----</div>
       </div>
 
-      <div class="section fade-in">
-        <h3><i class="fas fa-graduation-cap"></i> Education</h3>
-        <ul>
-          <li><strong>School:</strong> Dhanmondi Govt. Boy's High School (2011-2021)</li>
-          <li><strong>College:</strong> Dhaka City College (2023-2024)</li>
-          <li><strong>University:</strong> B.Sc in Software Engineering at Daffodil International University (2024-Present)</li>
-        </ul>
-      </div>
-
-      <div class="section fade-in">
-        <h3><i class="fas fa-code"></i> My Skills</h3>
-        <div class="skills-grid">
-          <span>HTML</span><span>CSS</span><span>JavaScript</span>
-          <span>React</span><span>Node.js</span><span>Express</span>
-          <span>Python</span><span>Django</span><span>Flask</span>
-          <span>Git</span><span>GitHub</span><span>VS Code</span>
+     
+      <h2 id="location">--</h2>
+      <div class="temp-box">
+        <span id="sunMoonIcon" class="sun-moon-icon">🌞</span>
+        <div class="temp">
+          <img id="icon" src="" alt="icon"/>
+          <span id="temperature">--</span>
         </div>
       </div>
+      <p id="description">--</p>
+      <p id="details">--</p>
+    </div>
 
-      <div class="section fade-in">
-        <h3><i class="fas fa-trophy"></i> My Achievements</h3>
-        <ul>
-          <li>Built 10+ open-source projects</li>
-          <li>500+ GitHub contributions</li>
-          <li>Active contributor to open-source</li>
-        </ul>
+    <div class="glass right-panel">
+      <h3>Next 30 Days</h3>
+      <div id="forecast30" class="forecast-grid"></div>
+
+     
+      <div class="map-box">
+        <h3>Location Map</h3>
+        <iframe id="miniMap" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.904745562371!2d90.36710731529646!3d23.750855784482215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b087026b81%3A0xa3bfbe9a9aa2dbeb!2sUniversity%20of%20Dhaka!5e0!3m2!1sen!2sbd!4v1234567890123!5m2!1sen!2sbd" width="100%" height="200" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
-
-      <div class="section fade-in">
-        <h3><i class="fas fa-envelope"></i> Get In Touch</h3>
-        <p>Email: emtiazsami@gmail.com</p>
-        <p>GitHub: <a href="https://github.com/sami21-lgtm/Md.-Emtiaz-Hossain-Sami" target="_blank">sami21-lgtm</a></p>
-      </div>
-
-      <a href="https://github.com/sami21-lgtm/Md.-Emtiaz-Hossain-Sami" target="_blank" class="profile-btn">
-        <i class="fab fa-github"></i> View Full GitHub Profile
-      </a>
-      <button onclick="logout()" class="logout-btn">Logout</button>
     </div>
   </div>
 
-  <footer class="footer">
-    Developed by <strong>Emtiaz Hossain Sami</strong>
-  </footer>
+
+  <div class="footer">
+    Developed by <strong>Emtiaz Hossain Sami</strong> | <span id="currentYear"></span>
+  </div>
 
   <script src="script.js"></script>
 </body>
