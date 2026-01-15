@@ -69,15 +69,15 @@ body.rainbow {
   font-size: 14px;
 }
 
-/* ---------- GLOBE SECTION – উপরে উঠানো (Globe-র মতো) ---------- */
-.globe-section {
+/* ---------- LOGO BAR – ছবির মতো উপরে ---------- */
+.logo-bar {
   position: fixed;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   z-index: 10;
 }
 
@@ -111,7 +111,7 @@ body.rainbow {
   top: -18px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 26px;
+  font-size: 24px;
   color: #ff4081;
 }
 
@@ -121,10 +121,10 @@ body.rainbow {
   letter-spacing: 1.5px;
 }
 
-/* ---------- SEARCH GLOBE BAR – উপরে উঠানো (Globe-র মতো) ---------- */
-.search-globe-bar {
+/* ---------- SEARCH BAR – ছবির মতো উপরে ---------- */
+.search-bar {
   position: fixed;
-  top: 100px;
+  top: 90px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -133,10 +133,10 @@ body.rainbow {
   z-index: 10;
 }
 
-.search-globe-bar input {
+.search-bar input {
   padding: 14px 18px;
   border: none;
-  border-radius: 30px;
+  border-radius: 25px;
   outline: none;
   background: rgba(255, 255, 255, 0.2);
   color: #fff;
@@ -144,7 +144,7 @@ body.rainbow {
   backdrop-filter: blur(5px);
 }
 
-.search-globe-bar button {
+.search-bar button {
   padding: 14px;
   border: none;
   border-radius: 50%;
@@ -156,7 +156,7 @@ body.rainbow {
   transition: transform 0.2s;
 }
 
-.search-globe-bar button:hover {
+.search-bar button:hover {
   transform: scale(1.1);
 }
 
@@ -165,7 +165,7 @@ body.rainbow {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-  padding: 200px 20px 40px;
+  padding: 180px 20px 40px;
   height: calc(100vh - 120px);
 }
 
@@ -182,7 +182,7 @@ body.rainbow {
 }
 
 .digital-time {
-  font-size: 34px;
+  font-size: 32px;
   font-weight: bold;
   margin-bottom: 4px;
 }
@@ -201,7 +201,7 @@ body.rainbow {
 }
 
 .sun-moon-icon {
-  font-size: 42px;
+  font-size: 40px;
   animation: pulse 2s infinite;
 }
 
@@ -214,12 +214,12 @@ body.rainbow {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 38px;
+  font-size: 36px;
   font-weight: bold;
 }
 
 .temp img {
-  width: 46px;
+  width: 44px;
 }
 
 .right-panel {
@@ -251,7 +251,7 @@ body.rainbow {
 
 .map-box iframe {
   width: 100%;
-  height: 280px;
+  height: 260px;
   border: 0;
   border-radius: 14px;
 }
@@ -271,29 +271,29 @@ body.rainbow {
 @media (max-width: 768px) {
   .main-grid {
     grid-template-columns: 1fr;
-    padding: 220px 15px 35px;
+    padding: 200px 15px 35px;
     gap: 15px;
   }
-  .globe-section {
+  .logo-bar {
     top: 15px;
   }
-  .search-globe-bar {
-    top: 90px;
+  .search-bar {
+    top: 80px;
   }
   .globe, .man {
-    font-size: 40px;
+    font-size: 44px;
   }
   .logo-text {
     font-size: 26px;
   }
-  .search-globe-bar input {
+  .search-bar input {
     width: 180px;
     font-size: 16px;
   }
   .temp {
-    font-size: 34px;
+    font-size: 32px;
   }
   .sun-moon-icon {
-    font-size: 36px;
+    font-size: 34px;
   }
 }
