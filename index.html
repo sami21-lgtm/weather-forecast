@@ -3,13 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Weather Globe - Full Screen</title>
+  <title>Digital Weather Globe</title>
   <link rel="stylesheet" href="style.css"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
 </head>
 <body>
-  <div class="bg-cover"></div>
+  <div class="bg-cover" id="bgCover"></div>
 
+  
+  <div class="color-picker">
+    <label for="themeColor">🎨 Theme:</label>
+    <select id="themeColor" onchange="changeTheme(this.value)">
+      <option value="rainbow">Rainbow</option>
+      <option value="blue">Blue</option>
+      <option value="pink">Pink</option>
+      <option value="green">Green</option>
+      <option value="gold">Gold</option>
+      <option value="red">Red</option>
+      <option value="purple">Purple</option>
+    </select>
+  </div>
+
+ 
   <div class="top-bar">
     <div class="logo-area">
       <i class="fas fa-globe-americas globe"></i>
@@ -17,7 +32,7 @@
         <i class="fas fa-male man"></i>
         <i class="fas fa-umbrella umbrella"></i>
       </div>
-      <span class="logo-text">Weather Globe</span>
+      <span class="logo-text">Digital Weather Globe</span>
     </div>
 
     <div class="controls">
@@ -29,14 +44,24 @@
     </div>
   </div>
 
+  <!-- মেইন কনটেন্ট -->
   <div class="main-grid">
-    <div class="glass current-weather">
-      <!-- Sun & Moon (এখন উপরে) -->
+    <!-- বাম প্যানেল -->
+    <div class="glass left-panel">
+      <!-- আইকন + টাইম + তারিখ -->
+      <div class="icon-time-box">
+        <i id="weatherIcon" class="fas fa-sun" style="font-size: 48px;"></i>
+        <div class="digital-time" id="digitalTime">--:--</div>
+        <div class="digital-date" id="digitalDate">-- / -- / ----</div>
+      </div>
+
+      <!-- Sun & Moon -->
       <div class="sun-moon-box">
         <h3>Sun & Moon</h3>
         <div id="sunMoon" class="sun-moon-content"></div>
       </div>
 
+     
       <h2 id="location">--</h2>
       <div class="temp">
         <img id="icon" src="" alt="icon"/>
@@ -46,15 +71,22 @@
       <p id="details">--</p>
     </div>
 
-    <div class="glass forecast-30day">
+    <!-- ডান প্যানেল -->
+    <div class="glass right-panel">
       <h3>Next 30 Days</h3>
       <div id="forecast30" class="forecast-grid"></div>
+
+     
+      <div class="map-box">
+        <h3>Location Map</h3>
+        <iframe id="miniMap" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.904745562371!2d90.36710731529646!3d23.750855784482215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b087026b81%3A0xa3bfbe9a9aa2dbeb!2sUniversity%20of%20Dhaka!5e0!3m2!1sen!2sbd!4v1234567890123!5m2!1sen!2sbd" width="100%" height="200" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
     </div>
   </div>
 
-  <!-- ফুটার -->
+ 
   <div class="footer">
-    Developed by <strong>Emtiaz Hossain Sami</strong>
+    Developed by <strong>Emtiaz Hossain Sami</strong> | <span id="currentYear"></span>
   </div>
 
   <script src="script.js"></script>
