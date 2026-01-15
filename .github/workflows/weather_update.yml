@@ -1,0 +1,28 @@
+name: Refresh Weather Cache
+
+on:
+  schedule:
+    - cron: '0 * * * *' # প্রতি ঘণ্টায় অটোমেটিক চলবে
+  workflow_dispatch:      # আপনি চাইলে নিজেও বাটন টিপে আপডেট করতে পারবেন
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Generate New Timestamp
+        run: |
+          # বর্তমান সময়ের একটি সংখ্যা (Timestamp) তৈরি করবে
+          TIMESTAMP=$(date +%s)
+          # README ফাইলে cache= এর পরের সংখ্যাটি পরিবর্তন করে দেবে
+          sed -i "s/cache=[0-9]*/cache=$TIMESTAMP/g" README.md
+
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add README.md
+          git commit -m "Updated weather cache timestamp" || exit 0
+          git push
