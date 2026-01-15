@@ -1,116 +1,155 @@
-/* ---------- RESET ---------- */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { width: 100vw; height: 100vh; overflow: hidden; font-family: 'Segoe UI', sans-serif; color: #fff; }
+const API_KEY = 'a583481b0d44a588d10f31b85e1a5df6';
+const searchInput = document.getElementById('searchInput');
+const digitalTime = document.getElementById('digitalTime');
+const digitalDate = document.getElementById('digitalDate');
+const currentYear = document.getElementById('currentYear');
+const sunMoonIcon = document.getElementById('sunMoonIcon');
+const miniMap = document.getElementById('miniMap');
 
-/* ---------- BACKGROUND ---------- */
-.bg-cover {
-  position: fixed;
-  inset: 0;
-  background: url('590767156_860519166891739_2633869132777924248_n.jpg') center/cover no-repeat;
-  filter: brightness(0.7); /* আগের মতো একটু ডার্ক ব্যাকগ্রাউন্ড */
-  z-index: -2;
+// Dark/Light Toggle
+function toggleDarkLight() {
+  const body = document.body;
+  const icon = document.getElementById('themeIcon');
+  if (body.classList.contains('dark')) {
+    body.classList.remove('dark');
+    body.classList.add('light');
+    icon.className = 'fas fa-moon';
+  } else {
+    body.classList.remove('light');
+    body.classList.add('dark');
+    icon.className = 'fas fa-sun';
+  }
 }
 
-/* ---------- LOGO & SEARCH BAR ---------- */
-.logo-bar {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  z-index: 10;
+// Time & Date + Auto Sun/Moon + Auto Temp
+function updateDateTime() {
+  const now = new Date();
+  digitalTime.textContent = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true });
+  digitalDate.textContent = now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  currentYear.textContent = now.getFullYear();
+
+  // Auto Sun/Moon
+  const hour = now.getHours();
+  sunMoonIcon.textContent = (hour >= 6 && hour < 18) ? '🌞' : '🌙';
+}
+setInterval(updateDateTime, 1000);
+updateDateTime();
+
+// Voice Search
+function startVoiceSearch() {
+  const rec = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  rec.lang = 'en-US'; rec.start();
+  rec.onresult = e => {
+    searchInput.value = e.results[0][0].transcript;
+    getWeather();
+  };
 }
 
-.logo-text { font-size: 32px; font-weight: bold; letter-spacing: 1.5px; }
-
-.search-bar {
-  position: fixed;
-  top: 90px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-  z-index: 10;
+// Location Weather
+function getLocationWeather() {
+  navigator.geolocation.getCurrentPosition(pos => {
+    const { latitude: lat, longitude: lon } = pos.coords;
+    fetchWeatherByCoords(lat, lon);
+  });
 }
 
-.search-bar input {
-  padding: 14px 18px;
-  border-radius: 25px;
-  border: none;
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-  font-size: 18px;
-  backdrop-filter: blur(5px);
+// Search
+function getWeather() {
+  const city = searchInput.value.trim();
+  if (!city) return;
+  fetchWeatherByCity(city);
 }
 
-/* ---------- MAIN GRID (বড় বক্স ডিজাইন) ---------- */
-.main-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  padding: 180px 20px 40px;
-  height: calc(100vh - 120px);
+// Fetch Weather
+async function fetchWeatherByCity(city) {
+  let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`;
+  let res = await fetch(url);
+  let data = await res.json();
+
+  if (data.cod !== 200) {
+    url = `https://api.openweathermap.org/data/2.5/weather?q=${city},BD&units=metric&appid=${API_KEY}`;
+    res = await fetch(url);
+    data = await res.json();
+  }
+
+  if (data.cod !== 200) {
+    const extra = [`${city},IN`, `${city},US`, `${city},UK`];
+    for (const c of extra) {
+      const tryRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${c}&units=metric&appid=${API_KEY}`);
+      const tryData = await tryRes.json();
+      if (tryData.cod === 200) { data = tryData; break; }
+    }
+  }
+
+  if (data.cod !== 200) return alert('City/Area not found');
+
+  displayCurrent(data);
+  const { lat, lon } = data.coord;
+  fetchSunMoon(lat, lon);
+  fetch30Days(lat, lon);
+  updateMiniMap(lat, lon);
 }
 
-.glass {
-  background: rgba(255, 255, 255, 0.15); /* আগের সেই ক্লাসিক গ্লাস লুক */
-  backdrop-filter: blur(12px);
-  border-radius: 20px;
-  padding: 25px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+async function fetchWeatherByCoords(lat, lon) {
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  displayCurrent(data);
+  fetchSunMoon(lat, lon);
+  fetch30Days(lat, lon);
+  updateMiniMap(lat, lon);
 }
 
-.left-panel { text-align: center; }
-
-.digital-time { font-size: 32px; font-weight: bold; margin-bottom: 4px; }
-.digital-date { font-size: 18px; opacity: 0.8; }
-
-.temp-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin: 15px 0;
+function displayCurrent(data) {
+  document.getElementById('location').textContent = `${data.name}, ${data.sys.country}`;
+  document.getElementById('temperature').textContent = `${Math.round(data.main.temp)}°C`;
+  document.getElementById('description').textContent = data.weather[0].description;
+  document.getElementById('icon').src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+  document.getElementById('details').textContent = `Feels like ${Math.round(data.main.feels_like)}°C • Humidity ${data.main.humidity}%`;
 }
 
-.sun-moon-icon { font-size: 40px; }
-
-.temp { font-size: 36px; font-weight: bold; }
-.temp img { width: 44px; }
-
-/* ---------- FORECAST & MAP ---------- */
-.right-panel { overflow-y: auto; }
-
-.forecast-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-  gap: 12px;
-  margin-top: 10px;
+// Sun/Moon Icon
+async function fetchSunMoon(lat, lon) {
+  const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&units=metric&appid=${API_KEY}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  const now = Date.now() / 1000;
+  sunMoonIcon.textContent = (now >= data.current.sunrise && now < data.current.sunset) ? '🌞' : '🌙';
 }
 
-.forecast-card {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 10px;
-  text-align: center;
-  font-size: 14px;
+// 30 Days Forecast
+async function fetch30Days(lat, lon) {
+  const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  const list = data.list.filter((_, i) => i % 8 === 0);
+  const html = list.slice(0, 30).map((d, idx) => {
+    const date = new Date();
+    date.setDate(date.getDate() + idx + 1);
+    return `
+      <div class="forecast-card">
+        <div>${date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</div>
+        <img src="https://openweathermap.org/img/wn/${d.weather[0].icon}.png" alt="icon"/>
+        <div>${Math.round(d.main.temp)}°C</div>
+        <div>${d.weather[0].main}</div>
+      </div>
+    `;
+  }).join('');
+  document.getElementById('forecast30').innerHTML = html;
 }
 
-.map-box iframe {
-  width: 100%;
-  height: 260px;
-  border-radius: 14px;
-  margin-top: 20px;
+// Mini Map
+function updateMiniMap(lat, lon) {
+  miniMap.src = `https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3651.89!2d${lon}!3d${lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v${Date.now()}`;
 }
 
-.footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  padding: 10px;
-  text-align: center;
-  font-size: 16px;
-  opacity: 0.8;
+// Theme Switch
+function changeTheme(color) {
+  document.body.className = color;
 }
+
+// Auto load Dhaka on start
+window.addEventListener('DOMContentLoaded', () => {
+  searchInput.value = 'Dhaka';
+  getWeather();
+});
