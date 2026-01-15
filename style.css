@@ -1,94 +1,103 @@
 /* ---------- RESET ---------- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { width: 100vw; height: 100vh; overflow-x: hidden; font-family: 'Segoe UI', sans-serif; color: #fff; }
+html, body { width: 100vw; height: 100vh; overflow: hidden; font-family: 'Segoe UI', sans-serif; color: #fff; }
 
-/* ---------- BACKGROUND (আপনার ফেস পরিষ্কার করার জন্য) ---------- */
+/* ---------- BACKGROUND (আপনার ফেস পরিষ্কার দেখার জন্য) ---------- */
 .bg-cover {
   position: fixed;
   inset: 0;
   background: url('590767156_860519166891739_2633869132777924248_n.jpg') center/cover no-repeat;
-  filter: brightness(1.0); /* ছবি একদম ক্লিয়ার দেখাবে */
+  filter: brightness(1.1); /* ছবি উজ্জ্বল করা হয়েছে */
   z-index: -2;
 }
 
-/* ---------- MAIN GRID (বক্সগুলো ছোট করা হয়েছে) ---------- */
+/* ---------- TOP CONTROLS ---------- */
+.top-controls {
+  position: fixed;
+  top: 10px;
+  right: 15px;
+  z-index: 100;
+  display: flex;
+  gap: 10px;
+}
+
+/* ---------- LOGO & SEARCH (ছবির মতো উপরে) ---------- */
+.logo-bar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+}
+
+.logo-text { font-size: 28px; font-weight: bold; }
+
+.search-bar {
+  position: fixed;
+  top: 85px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.search-bar input {
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  backdrop-filter: blur(5px);
+}
+
+/* ---------- MAIN LAYOUT (বক্স ছোট এবং স্বচ্ছ) ---------- */
 .main-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px; 
-  padding: 150px 20px 40px;
-  height: auto;
+  display: flex; /* গ্রিডের বদলে ফ্লেক্স ব্যবহার করে বক্সগুলোকে দুই পাশে সরানো হয়েছে */
+  justify-content: space-around;
+  padding: 160px 20px 20px;
   align-items: start;
 }
 
 .glass {
-  background: rgba(0, 0, 0, 0.3); /* বক্স আরও স্বচ্ছ করা হয়েছে */
-  backdrop-filter: blur(5px); /* ঝাপসা কমানো হয়েছে যাতে ফেস দেখা যায় */
-  border-radius: 15px;
-  padding: 15px; /* প্যাডিং কমিয়ে বক্স ছোট করা হয়েছে */
-  max-width: 320px; /* বক্সের চওড়া কমানো হয়েছে */
-  margin: 0 auto;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.25); /* অনেক বেশি স্বচ্ছ বক্স */
+  backdrop-filter: blur(3px); /* ঝাপসা কমানো হয়েছে যাতে ফেস পরিষ্কার দেখা যায় */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 15px;
+  width: 280px; /* বক্সের সাইজ ছোট করা হয়েছে */
 }
 
-.left-panel { text-align: center; }
-
-.digital-time { font-size: 28px; font-weight: bold; }
-.digital-date { font-size: 16px; opacity: 0.9; }
-
-.temp-box {
+/* ফোরকাস্ট কার্ড ছোট এবং লিস্ট স্টাইল */
+.forecast-card {
+  background: rgba(255, 255, 255, 0.05);
+  margin-bottom: 6px;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 11px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin: 10px 0;
+  justify-content: space-between;
 }
 
-.sun-moon-icon { font-size: 32px; }
-
-.temp { font-size: 30px; font-weight: bold; }
-.temp img { width: 38px; }
-
-/* ---------- FORECAST (আরও ক্লিয়ার করা হয়েছে) ---------- */
-.right-panel {
-  max-height: 480px;
-  overflow-y: auto;
-}
-
-.forecast-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* ২ কলামে ছোট ছোট কার্ড */
-  gap: 8px;
-  margin-top: 5px;
-}
-
-.forecast-card {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  padding: 8px;
-  text-align: center;
-  font-size: 12px;
-}
-
-.forecast-card img { width: 28px; }
+.forecast-card img { width: 25px; }
 
 .map-box iframe {
   width: 100%;
-  height: 200px; /* ম্যাপ ছোট করা হয়েছে */
+  height: 180px;
   border-radius: 10px;
+  margin-top: 10px;
 }
 
 .footer {
   position: fixed;
-  bottom: 5px;
+  bottom: 10px;
   width: 100%;
   text-align: center;
   font-size: 14px;
-  z-index: 5;
+  opacity: 0.7;
 }
 
-/* মোবাইল ভিউ ঠিক করার জন্য */
-@media (max-width: 768px) {
-  .main-grid { grid-template-columns: 1fr; padding-top: 180px; }
-  .glass { max-width: 90%; }
-}
