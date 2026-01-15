@@ -1,1 +1,3 @@
-![Weather](https://github-readme-weather.vercel.app/api?location=Dhaka&theme=dark&cache=1)
+# Weather Globe 🌍
+## Current Weather
+![Weather](https://github-readme-weather.vercel.app/api?location=Dhaka&theme=dark)
