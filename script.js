@@ -1,4 +1,5 @@
 const API_KEY = 'a583481b0d44a588d10f31b85e1a5df6';
+const API_KEY = 'YOUR_OPENWEATHER_API_KEY';
 const searchInput = document.getElementById('searchInput');
 const themeToggle = document.getElementById('themeToggle');
 const manIcon = document.getElementById('manIcon');
