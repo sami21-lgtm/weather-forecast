@@ -10,20 +10,6 @@
 <body>
   <div class="bg-cover" id="bgCover"></div>
 
-  <!-- কালার পিকার -->
-  <div class="color-picker">
-    <label for="themeColor">🎨</label>
-    <select id="themeColor" onchange="changeTheme(this.value)">
-      <option value="rainbow">Rainbow</option>
-      <option value="blue">Blue</option>
-      <option value="pink">Pink</option>
-      <option value="green">Green</option>
-      <option value="gold">Gold</option>
-      <option value="red">Red</option>
-      <option value="purple">Purple</option>
-    </select>
-  </div>
-
   <!-- টপ বার -->
   <div class="top-bar">
     <div class="logo-area">
@@ -40,7 +26,20 @@
       <button onclick="getWeather()"><i class="fas fa-search"></i></button>
       <button class="voice-btn" onclick="startVoiceSearch()"><i class="fas fa-microphone"></i></button>
       <button class="location-btn" onclick="getLocationWeather()"><i class="fas fa-location-arrow"></i></button>
-      <button id="themeToggle" class="theme-btn"><i class="fas fa-moon"></i></button>
+
+      <!-- রেইনবো থিম সিলেক্টর ভয়েস বাটনের পাশে -->
+      <div class="color-picker">
+        <label for="themeColor">🎨</label>
+        <select id="themeColor" onchange="changeTheme(this.value)">
+          <option value="rainbow">Rainbow</option>
+          <option value="blue">Blue</option>
+          <option value="pink">Pink</option>
+          <option value="green">Green</option>
+          <option value="gold">Gold</option>
+          <option value="red">Red</option>
+          <option value="purple">Purple</option>
+        </select>
+      </div>
     </div>
   </div>
 
