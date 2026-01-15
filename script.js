@@ -6,16 +6,19 @@ const digitalTime = document.getElementById('digitalTime');
 const digitalDate = document.getElementById('digitalDate');
 const currentYear = document.getElementById('currentYear');
 const sunMoonIcon = document.getElementById('sunMoonIcon');
+const weatherEmoji = document.getElementById('weatherEmoji');
 const miniMap = document.getElementById('miniMap');
 
 // Theme
 if (localStorage.getItem('theme') === 'dark') {
   document.body.classList.add('dark');
+  themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
 }
-document.getElementById('themeColor').addEventListener('change', (e) => {
-  const color = e.target.value;
-  document.body.className = color;
-  localStorage.setItem('theme', color);
+themeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  const isDark = document.body.classList.contains('dark');
+  themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
 });
 
 // Man click
@@ -33,6 +36,22 @@ function updateDateTime() {
 }
 setInterval(updateDateTime, 1000);
 updateDateTime();
+
+// Weather emoji mapping
+function getWeatherEmoji(main) {
+  const emojis = {
+    Clear: '☀️',
+    Clouds: '☁️',
+    Rain: '🌧️',
+    Drizzle: '🌦️',
+    Thunderstorm: '⛈️',
+    Snow: '❄️',
+    Mist: '🌫️',
+    Fog: '🌫️',
+    Haze: '🌫️'
+  };
+  return emojis[main] || '☀️';
+}
 
 // Voice
 function startVoiceSearch() {
@@ -86,9 +105,12 @@ function displayCurrent(data) {
   document.getElementById('description').textContent = data.weather[0].description;
   document.getElementById('icon').src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
   document.getElementById('details').textContent = `Feels like ${Math.round(data.main.feels_like)}°C • Humidity ${data.main.humidity}%`;
+  
+  // Update weather emoji
+  weatherEmoji.textContent = getWeatherEmoji(data.weather[0].main);
 }
 
-// Sun/Moon Icon
+// Sun/Moon Icon (time based)
 async function fetchSunMoon(lat, lon) {
   const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&units=metric&appid=${API_KEY}`;
   const res = await fetch(url); const data = await res.json();
