@@ -1,299 +1,94 @@
 /* ---------- RESET ---------- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { width: 100vw; height: 100vh; overflow: hidden; font-family: 'Segoe UI', sans-serif; color: #fff; }
+html, body { width: 100vw; height: 100vh; overflow-x: hidden; font-family: 'Segoe UI', sans-serif; color: #fff; }
 
-/* ---------- BACKGROUND ---------- */
+/* ---------- BACKGROUND (আপনার ফেস পরিষ্কার করার জন্য) ---------- */
 .bg-cover {
   position: fixed;
   inset: 0;
   background: url('590767156_860519166891739_2633869132777924248_n.jpg') center/cover no-repeat;
-  filter: brightness(0.7);
+  filter: brightness(1.0); /* ছবি একদম ক্লিয়ার দেখাবে */
   z-index: -2;
 }
 
-/* ---------- DARK/LIGHT + RAINBOW THEME ---------- */
-body.dark {
-  filter: brightness(0.5);
-}
-
-body.light {
-  filter: brightness(0.7);
-}
-
-body.rainbow {
-  background: linear-gradient(45deg, #ff0080, #ff8c00, #ffd700, #00ff80, #0080ff, #8000ff, #ff0080);
-  background-size: 400% 400%;
-  animation: rainbow 10s ease infinite;
-}
-
-@keyframes rainbow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* ---------- TOP CONTROLS ---------- */
-.top-controls {
-  position: fixed;
-  top: 10px;
-  right: 15px;
-  z-index: 100;
-  display: flex;
-  gap: 10px;
-}
-
-.theme-toggle {
-  background: rgba(0, 0, 0, 0.3);
-  border: none;
-  border-radius: 50%;
-  padding: 10px;
-  color: #fff;
-  cursor: pointer;
-  font-size: 18px;
-  backdrop-filter: blur(5px);
-}
-
-.color-picker {
-  background: rgba(0, 0, 0, 0.3);
-  padding: 6px 10px;
-  border-radius: 20px;
-  backdrop-filter: blur(5px);
-}
-
-.color-picker select {
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-  border: none;
-  border-radius: 15px;
-  padding: 6px 10px;
-  font-size: 14px;
-}
-
-/* ---------- LOGO BAR – ছবির মতো উপরে ---------- */
-.logo-bar {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  z-index: 10;
-}
-
-.globe {
-  font-size: 52px;
-  animation: rotate 10s linear infinite;
-}
-
-@keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.man-icon {
-  position: relative;
-  cursor: pointer;
-}
-
-.man {
-  font-size: 52px;
-  animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
-.umbrella {
-  position: absolute;
-  top: -18px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 24px;
-  color: #ff4081;
-}
-
-.logo-text {
-  font-size: 32px;
-  font-weight: bold;
-  letter-spacing: 1.5px;
-}
-
-/* ---------- SEARCH BAR – ছবির মতো উপরে ---------- */
-.search-bar {
-  position: fixed;
-  top: 90px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  z-index: 10;
-}
-
-.search-bar input {
-  padding: 14px 18px;
-  border: none;
-  border-radius: 25px;
-  outline: none;
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-  font-size: 18px;
-  backdrop-filter: blur(5px);
-}
-
-.search-bar button {
-  padding: 14px;
-  border: none;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-  cursor: pointer;
-  font-size: 20px;
-  backdrop-filter: blur(5px);
-  transition: transform 0.2s;
-}
-
-.search-bar button:hover {
-  transform: scale(1.1);
-}
-
-/* ---------- MAIN GRID ---------- */
+/* ---------- MAIN GRID (বক্সগুলো ছোট করা হয়েছে) ---------- */
 .main-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  padding: 180px 20px 40px;
-  height: calc(100vh - 120px);
+  gap: 15px; 
+  padding: 150px 20px 40px;
+  height: auto;
+  align-items: start;
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  border-radius: 20px;
-  padding: 25px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.3); /* বক্স আরও স্বচ্ছ করা হয়েছে */
+  backdrop-filter: blur(5px); /* ঝাপসা কমানো হয়েছে যাতে ফেস দেখা যায় */
+  border-radius: 15px;
+  padding: 15px; /* প্যাডিং কমিয়ে বক্স ছোট করা হয়েছে */
+  max-width: 320px; /* বক্সের চওড়া কমানো হয়েছে */
+  margin: 0 auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-.left-panel {
-  text-align: center;
-}
+.left-panel { text-align: center; }
 
-.digital-time {
-  font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 4px;
-}
-
-.digital-date {
-  font-size: 18px;
-  opacity: 0.8;
-}
+.digital-time { font-size: 28px; font-weight: bold; }
+.digital-date { font-size: 16px; opacity: 0.9; }
 
 .temp-box {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin: 15px 0;
+  gap: 8px;
+  margin: 10px 0;
 }
 
-.sun-moon-icon {
-  font-size: 40px;
-  animation: pulse 2s infinite;
-}
+.sun-moon-icon { font-size: 32px; }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-}
+.temp { font-size: 30px; font-weight: bold; }
+.temp img { width: 38px; }
 
-.temp {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 36px;
-  font-weight: bold;
-}
-
-.temp img {
-  width: 44px;
-}
-
+/* ---------- FORECAST (আরও ক্লিয়ার করা হয়েছে) ---------- */
 .right-panel {
+  max-height: 480px;
   overflow-y: auto;
 }
 
 .forecast-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-  gap: 12px;
-  margin-top: 10px;
+  grid-template-columns: repeat(2, 1fr); /* ২ কলামে ছোট ছোট কার্ড */
+  gap: 8px;
+  margin-top: 5px;
 }
 
 .forecast-card {
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 10px;
+  border-radius: 10px;
+  padding: 8px;
   text-align: center;
-  font-size: 14px;
+  font-size: 12px;
 }
 
-.forecast-card img {
-  width: 32px;
-}
-
-.map-box {
-  margin-top: 20px;
-}
+.forecast-card img { width: 28px; }
 
 .map-box iframe {
   width: 100%;
-  height: 260px;
-  border: 0;
-  border-radius: 14px;
+  height: 200px; /* ম্যাপ ছোট করা হয়েছে */
+  border-radius: 10px;
 }
 
 .footer {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 10px;
+  bottom: 5px;
+  width: 100%;
   text-align: center;
-  font-size: 16px;
-  opacity: 0.8;
+  font-size: 14px;
   z-index: 5;
 }
 
+/* মোবাইল ভিউ ঠিক করার জন্য */
 @media (max-width: 768px) {
-  .main-grid {
-    grid-template-columns: 1fr;
-    padding: 200px 15px 35px;
-    gap: 15px;
-  }
-  .logo-bar {
-    top: 15px;
-  }
-  .search-bar {
-    top: 80px;
-  }
-  .globe, .man {
-    font-size: 44px;
-  }
-  .logo-text {
-    font-size: 26px;
-  }
-  .search-bar input {
-    width: 180px;
-    font-size: 16px;
-  }
-  .temp {
-    font-size: 32px;
-  }
-  .sun-moon-icon {
-    font-size: 34px;
-  }
+  .main-grid { grid-template-columns: 1fr; padding-top: 180px; }
+  .glass { max-width: 90%; }
 }
