@@ -21,7 +21,7 @@ function toggleDarkLight() {
   }
 }
 
-// Time & Date + Auto Sun/Moon
+// Time & Date + Auto Sun/Moon + Auto Temp
 function updateDateTime() {
   const now = new Date();
   digitalTime.textContent = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true });
