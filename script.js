@@ -181,7 +181,7 @@ function changeTheme(color) {
 }
 
 // --- AUTO UPDATE LOGIC ---
-// প্রতি ১৫ মিনিট (৯০০,০০০ মিলিসেকেন্ড) পরপর তথ্য আপডেট হবে
+
 setInterval(() => {
   const currentCity = document.getElementById('location').textContent.split(',')[0];
   if (currentCity && currentCity !== "Location") {
