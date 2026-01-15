@@ -1,62 +1,27 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ---------- RESET ---------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100vw; height: 100vh; overflow: hidden; font-family: 'Segoe UI', sans-serif; color: #fff; }
 
-html, body {
-  width: 100vw;
-  min-height: 100vh;
-  overflow-x: hidden;
-  font-family: 'Segoe UI', sans-serif;
-  color: #fff;
-  transition: background 0.3s ease;
-}
-
-/* কালার থিম ভেরিয়েবল */
-:root {
-  --rainbow: linear-gradient(45deg, #ff0080, #ff8c00, #ffd700, #00ff80, #0080ff, #8000ff, #ff0080);
-  --blue: linear-gradient(135deg, #74ebd5, #ACB6E5);
-  --pink: linear-gradient(135deg, #ff6ec4, #7873f5);
-  --green: linear-gradient(135deg, #11998e, #38ef7d);
-  --gold: linear-gradient(135deg, #f2994a, #f2c94c);
-  --red: linear-gradient(135deg, #eb3349, #f45c43);
-  --purple: linear-gradient(135deg, #667eea, #764ba2);
-}
-
+/* ---------- BACKGROUND ---------- */
 .bg-cover {
   position: fixed;
   inset: 0;
-  background: var(--rainbow);
-  background-size: 400% 400%;
+  background: url('590767156_860519166891739_2633869132777924248_n.jpg') center/cover no-repeat;
+  filter: brightness(0.7);
   z-index: -2;
-  animation: rainbow 15s ease infinite;
 }
 
-@keyframes rainbow {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-body.dark .bg-cover {
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  animation: none;
-}
-
-/* টপ বার */
+/* ---------- TOP BAR ---------- */
 .top-bar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  padding: 12px 20px;
+  padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 10;
-  backdrop-filter: blur(10px);
-  background: rgba(0,0,0,0.1);
 }
 
 .logo-area {
@@ -66,7 +31,7 @@ body.dark .bg-cover {
 }
 
 .globe {
-  font-size: 36px;
+  font-size: 40px;
   animation: rotate 10s linear infinite;
 }
 
@@ -78,53 +43,29 @@ body.dark .bg-cover {
 .man-icon {
   position: relative;
   cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.man-icon:hover {
-  transform: scale(1.1);
-}
-
-.man-icon.clicked {
-  animation: manJump 0.5s ease;
-}
-
-@keyframes manJump {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-15px); }
-  100% { transform: translateY(0); }
 }
 
 .man {
-  font-size: 36px;
-  color: #fff;
+  font-size: 40px;
   animation: bounce 2s infinite;
-}
-
-body.dark .man {
-  color: #ffd700;
-}
-
-.umbrella {
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 18px;
-  color: #ff4081;
-}
-
-body.dark .umbrella {
-  color: #ff80ab;
 }
 
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-8px); }
+  50% { transform: translateY(-8px); }
+}
+
+.umbrella {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  color: #ff4081;
 }
 
 .logo-text {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -142,7 +83,6 @@ body.dark .umbrella {
   background: rgba(255, 255, 255, 0.2);
   color: #fff;
   font-size: 14px;
-  width: 140px;
 }
 
 .controls button {
@@ -153,31 +93,34 @@ body.dark .umbrella {
   color: #fff;
   cursor: pointer;
   font-size: 14px;
-  transition: 0.3s ease;
 }
 
-.controls button:hover {
-  background: rgba(255, 255, 255, 0.3);
+.color-picker {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px 8px;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
 }
 
-/* রেইনবো সিলেক্ট */
-.theme-select {
-  background: rgba(255,255,255,0.2);
+.color-picker select {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
   border: none;
   border-radius: 15px;
-  color: #fff;
-  padding: 5px 8px;
-  font-size: 14px;
-  cursor: pointer;
+  padding: 4px 8px;
+  font-size: 12px;
 }
 
-/* মেইন গ্রিড */
+/* ---------- MAIN GRID ---------- */
 .main-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 15px;
-  padding: 70px 20px 40px;
-  min-height: calc(100vh - 110px);
+  padding: 80px 20px 40px;
+  height: calc(100vh - 120px);
 }
 
 .glass {
@@ -186,26 +129,16 @@ body.dark .umbrella {
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
-}
-
-.glass:hover {
-  transform: translateY(-5px);
 }
 
 .left-panel {
   text-align: center;
 }
 
-.icon-time-box {
-  margin-bottom: 15px;
-}
-
 .digital-time {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   margin-bottom: 3px;
-  text-shadow: 0 0 10px rgba(255,255,255,0.3);
 }
 
 .digital-date {
@@ -217,58 +150,39 @@ body.dark .umbrella {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin: 15px 0;
-}
-
-.weather-emoji {
-  font-size: 32px;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+  gap: 10px;
+  margin: 10px 0;
 }
 
 .sun-moon-icon {
   font-size: 28px;
-  animation: float 3s ease-in-out infinite;
+  animation: pulse 2s infinite;
 }
 
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-  100% { transform: translateY(0); }
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 
 .temp {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 32px;
+  font-size: 28px;
   font-weight: bold;
 }
 
 .temp img {
-  width: 40px;
-  filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+  width: 35px;
 }
 
-right-panel {
+.right-panel {
   overflow-y: auto;
-}
-
-.right-panel h3 {
-  font-size: 16px;
-  margin-bottom: 10px;
-  text-align: center;
 }
 
 .forecast-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
   gap: 8px;
   margin-top: 8px;
 }
@@ -276,39 +190,26 @@ right-panel {
 .forecast-card {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  padding: 8px;
+  padding: 6px;
   text-align: center;
   font-size: 10px;
-  transition: transform 0.2s ease;
-}
-
-.forecast-card:hover {
-  transform: scale(1.05);
 }
 
 .forecast-card img {
-  width: 28px;
-  margin-bottom: 2px;
+  width: 24px;
 }
 
 .map-box {
   margin-top: 15px;
 }
 
-.map-box h3 {
-  font-size: 14px;
-  margin-bottom: 8px;
-  text-align: center;
-}
-
 .map-box iframe {
   width: 100%;
   height: 150px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  border: 0;
+  border-radius: 10px;
 }
 
-/* ফুটার */
 .footer {
   position: fixed;
   bottom: 0;
@@ -316,51 +217,34 @@ right-panel {
   right: 0;
   padding: 8px;
   text-align: center;
-  font-size: 11px;
-  color: #fff;
+  font-size: 12px;
   opacity: 0.8;
   z-index: 5;
-  backdrop-filter: blur(5px);
 }
 
-/* রেসপন্সিভ */
 @media (max-width: 768px) {
   .main-grid {
     grid-template-columns: 1fr;
-    padding: 60px 15px 35px;
+    padding: 70px 15px 35px;
     gap: 10px;
   }
-  
   .top-bar {
     padding: 8px 15px;
   }
-  
-  .globe {
-    font-size: 28px;
+  .globe, .man {
+    font-size: 30px;
   }
-  
-  .man {
-    font-size: 28px;
-  }
-  
   .logo-text {
     font-size: 16px;
   }
-  
   .controls input {
     width: 120px;
     font-size: 12px;
   }
-  
   .temp {
     font-size: 24px;
   }
-  
-  .weather-emoji, .sun-moon-icon {
+  .sun-moon-icon {
     font-size: 24px;
-  }
-
-  .digital-time {
-    font-size: 20px;
   }
 }
