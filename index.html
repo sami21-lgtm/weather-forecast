@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Digital Weather Globe</title>
-  <link rel="stylesheet" href="style.css"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Globe</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="bg-cover" id="bgCover"></div>
 
-  <!-- টপ বার -->
   <div class="top-bar">
     <div class="logo-area">
       <i class="fas fa-globe-americas globe"></i>
@@ -26,39 +25,33 @@
       <button onclick="getWeather()"><i class="fas fa-search"></i></button>
       <button class="voice-btn" onclick="startVoiceSearch()"><i class="fas fa-microphone"></i></button>
       <button class="location-btn" onclick="getLocationWeather()"><i class="fas fa-location-arrow"></i></button>
-      <button id="themeToggle" class="theme-btn"><i class="fas fa-moon"></i></button>
-      
-      <!-- রেইনবো পিকার -->
-      <select id="themeColor" class="theme-select" onchange="changeTheme(this.value)">
-        <option value="rainbow">🌈</option>
-        <option value="blue">🔵</option>
-        <option value="pink">🩷</option>
-        <option value="green">🟢</option>
-        <option value="gold">🟡</option>
-        <option value="red">🔴</option>
-        <option value="purple">🟣</option>
-      </select>
+
+      <div class="color-picker">
+        <label for="themeColor">🎨</label>
+        <select id="themeColor" onchange="changeTheme(this.value)">
+          <option value="rainbow">Rainbow</option>
+          <option value="blue">Blue</option>
+          <option value="pink">Pink</option>
+          <option value="green">Green</option>
+          <option value="gold">Gold</option>
+          <option value="red">Red</option>
+          <option value="purple">Purple</option>
+        </select>
+      </div>
     </div>
   </div>
 
-  <!-- মেইন কনটেন্ট -->
   <div class="main-grid">
     <div class="glass left-panel">
-      <!-- ডিজিটাল ক্লক -->
-      <div class="icon-time-box">
-        <div class="digital-time" id="digitalTime">--:--</div>
-        <div class="digital-date" id="digitalDate">-- / --</div>
-      </div>
-
-      <!-- লোকেশন + Weather Icon + Temp -->
+      <div class="digital-time" id="digitalTime">--:--</div>
+      <div class="digital-date" id="digitalDate">-- / --</div>
       <h2 id="location">--</h2>
       <div class="temp-box">
-        <span id="weatherEmoji" class="weather-emoji">☀️</span>
+        <span id="sunMoonIcon" class="sun-moon-icon">🌞</span>
         <div class="temp">
           <img id="icon" src="" alt="icon"/>
           <span id="temperature">--</span>
         </div>
-        <span id="sunMoonIcon" class="sun-moon-icon">🌞</span>
       </div>
       <p id="description">--</p>
       <p id="details">--</p>
@@ -68,17 +61,16 @@
       <h3>Next 30 Days</h3>
       <div id="forecast30" class="forecast-grid"></div>
 
-      <!-- ম্যাপ -->
       <div class="map-box">
-        <h3>Location Map</h3>
-        <iframe id="miniMap" src="" width="100%" height="180" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy"></iframe>
+        <h3>Map</h3>
+        <iframe id="miniMap" src="" width="100%" height="150" style="border:0;border-radius:10px;" allowfullscreen loading="lazy"></iframe>
       </div>
     </div>
   </div>
 
-  <div class="footer">
+  <footer class="footer">
     Developed by <strong>Emtiaz Hossain Sami</strong> | <span id="currentYear"></span>
-  </div>
+  </footer>
 
   <script src="script.js"></script>
 </body>
