@@ -3,45 +3,51 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Weather Globe</title>
+  <title>Weather Globe - Full Screen</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
 </head>
 <body>
-  <div class="container">
-    <div class="glass">
-      <div class="header">
-        <i class="fas fa-globe-americas globe"></i>
-        <div class="man-icon" id="manIcon" title="Click me!">
-          <i class="fas fa-male man"></i>
-          <i class="fas fa-umbrella umbrella"></i>
-        </div>
-        <h1>Weather Globe</h1>
-        <button id="themeToggle" class="theme-btn"><i class="fas fa-moon"></i></button>
-      </div>
+  <div class="bg-cover"></div>
 
-      <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Type city or state..." />
-        <button onclick="getWeather()"><i class="fas fa-search"></i></button>
-        <button onclick="startVoiceSearch()" class="voice-btn"><i class="fas fa-microphone"></i></button>
-        <button onclick="getLocationWeather()" class="location-btn"><i class="fas fa-location-arrow"></i></button>
+  <div class="top-bar">
+    <div class="logo-area">
+      <i class="fas fa-globe-americas globe"></i>
+      <div class="man-icon" id="manIcon" title="Click me!">
+        <i class="fas fa-male man"></i>
+        <i class="fas fa-umbrella umbrella"></i>
       </div>
-
-      <div id="weatherResult" class="weather-info hidden">
-        <h2 id="location"></h2>
-        <div class="temp">
-          <img id="icon" src="" alt="icon" />
-          <span id="temperature"></span>
-        </div>
-        <p id="description"></p>
-        <p id="details"></p>
-      </div>
-
-      <div id="forecast" class="forecast hidden">
-        <h3>5-Day Forecast</h3>
-        <div id="forecastList" class="forecast-list"></div>
-      </div>
+      <span class="logo-text">Weather Globe</span>
     </div>
+
+    <div class="controls">
+      <input type="text" id="searchInput" placeholder="City name..." />
+      <button onclick="getWeather()"><i class="fas fa-search"></i></button>
+      <button class="voice-btn" onclick="startVoiceSearch()"><i class="fas fa-microphone"></i></button>
+      <button class="location-btn" onclick="getLocationWeather()"><i class="fas fa-location-arrow"></i></button>
+      <button id="themeToggle" class="theme-btn"><i class="fas fa-moon"></i></button>
+    </div>
+  </div>
+
+  <div class="main-grid">
+    <div class="glass current-weather">
+      <h2 id="location">--</h2>
+      <div class="temp">
+        <img id="icon" src="" alt="icon"/>
+        <span id="temperature">--</span>
+      </div>
+      <p id="description">--</p>
+      <p id="details">--</p>
+    </div>
+
+    <div class="glass forecast-30day">
+      <h3>Next 30 Days</h3>
+      <div id="forecast30" class="forecast-grid"></div>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <span>Last auto-update: <span id="lastUpdate">--</span></span>
   </div>
 
   <script src="script.js"></script>
