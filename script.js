@@ -11,13 +11,11 @@ const miniMap = document.getElementById('miniMap');
 // Theme
 if (localStorage.getItem('theme') === 'dark') {
   document.body.classList.add('dark');
-  themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
 }
-themeToggle.addEventListener('click', () => {
-  document.body.classList.toggle('dark');
-  const isDark = document.body.classList.contains('dark');
-  themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+document.getElementById('themeColor').addEventListener('change', (e) => {
+  const color = e.target.value;
+  document.body.className = color;
+  localStorage.setItem('theme', color);
 });
 
 // Man click
