@@ -6,7 +6,7 @@ const currentYear = document.getElementById('currentYear');
 const sunMoonIcon = document.getElementById('sunMoonIcon');
 const miniMap = document.getElementById('miniMap');
 
-// Dark/Light Toggle
+// ১. ডার্ক/লাইট মোড টগল
 function toggleDarkLight() {
   const body = document.body;
   const icon = document.getElementById('themeIcon');
@@ -21,21 +21,17 @@ function toggleDarkLight() {
   }
 }
 
-// Time & Date + Auto Sun/Moon
+// ২. ঘড়ি এবং তারিখ (এখানে এখন আর আইকন পরিবর্তনের কোড নেই, কারণ এটি API থেকে হবে)
 function updateDateTime() {
   const now = new Date();
   digitalTime.textContent = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true });
   digitalDate.textContent = now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
   currentYear.textContent = now.getFullYear();
-
-  // Simple visual sun/moon based on local time
-  const hour = now.getHours();
-  sunMoonIcon.textContent = (hour >= 6 && hour < 18) ? '🌞' : '🌙';
 }
 setInterval(updateDateTime, 1000);
 updateDateTime();
 
-// Voice Search
+// ৩. ভয়েস সার্চ
 function startVoiceSearch() {
   const rec = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
   rec.lang = 'en-US'; 
@@ -46,7 +42,7 @@ function startVoiceSearch() {
   };
 }
 
-// Location Weather
+// ৪. বর্তমান লোকেশন অনুযায়ী আবহাওয়া
 function getLocationWeather() {
   navigator.geolocation.getCurrentPosition(pos => {
     const { latitude: lat, longitude: lon } = pos.coords;
@@ -56,21 +52,20 @@ function getLocationWeather() {
   });
 }
 
-// Search Function
+// ৫. সার্চ বাটন এবং এন্টার কী সাপোর্ট
 function getWeather() {
   const city = searchInput.value.trim();
   if (!city) return;
   fetchWeatherByCity(city);
 }
 
-// Keyboard Enter Key Support
 searchInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
     getWeather();
   }
 });
 
-// Fetch Weather By City
+// ৬. সিটির নাম দিয়ে ডেটা ফেচ করা
 async function fetchWeatherByCity(city) {
   let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`;
   try {
@@ -83,20 +78,10 @@ async function fetchWeatherByCity(city) {
       data = await res.json();
     }
 
-    if (data.cod !== 200) {
-      const extra = [`${city},IN`, `${city},US`, `${city},UK`];
-      for (const c of extra) {
-        const tryRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${c}&units=metric&appid=${API_KEY}`);
-        const tryData = await tryRes.json();
-        if (tryData.cod === 200) { data = tryData; break; }
-      }
-    }
-
     if (data.cod !== 200) return alert('City/Area not found');
 
     displayCurrent(data);
     const { lat, lon } = data.coord;
-    fetchSunMoon(lat, lon);
     fetch30Days(lat, lon);
     updateMiniMap(lat, lon);
   } catch (error) {
@@ -104,14 +89,13 @@ async function fetchWeatherByCity(city) {
   }
 }
 
-// Fetch Weather By Coordinates
+// ৭. অক্ষাংশ/দ্রাঘিমাংশ দিয়ে ডেটা ফেচ করা
 async function fetchWeatherByCoords(lat, lon) {
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
   try {
     const res = await fetch(url);
     const data = await res.json();
     displayCurrent(data);
-    fetchSunMoon(lat, lon);
     fetch30Days(lat, lon);
     updateMiniMap(lat, lon);
   } catch (error) {
@@ -119,32 +103,27 @@ async function fetchWeatherByCoords(lat, lon) {
   }
 }
 
+// ৮. স্ক্রিনে আবহাওয়া এবং সূর্য/চাঁদ দেখানো (পারফেক্ট লজিক)
 function displayCurrent(data) {
   document.getElementById('location').textContent = `${data.name}, ${data.sys.country}`;
   document.getElementById('temperature').textContent = `${Math.round(data.main.temp)}°C`;
   document.getElementById('description').textContent = data.weather[0].description;
   document.getElementById('icon').src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
   document.getElementById('details').textContent = `Feels like ${Math.round(data.main.feels_like)}°C • Humidity ${data.main.humidity}%`;
-}
 
-// Sun/Moon Icon from API
-async function fetchSunMoon(lat, lon) {
-  // Note: OneCall API might require a paid subscription/card setup. 
-  // If it fails, the default updateDateTime() logic will still work.
-  try {
-    const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&units=metric&appid=${API_KEY}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    if(data.current) {
-        const now = Date.now() / 1000;
-        sunMoonIcon.textContent = (now >= data.current.sunrise && now < data.current.sunset) ? '🌞' : '🌙';
-    }
-  } catch (e) {
-    console.log("OneCall API error or limit reached.");
+  // সূর্যাস্ত লজিক: API থেকে আসা সময় অনুযায়ী চাঁদ/সূর্য আপডেট
+  const now = Math.floor(Date.now() / 1000); 
+  const sunrise = data.sys.sunrise; 
+  const sunset = data.sys.sunset;   
+
+  if (now >= sunrise && now < sunset) {
+    sunMoonIcon.textContent = '🌞'; // দিন হলে সূর্য
+  } else {
+    sunMoonIcon.textContent = '🌙'; // রাত হলে চাঁদ
   }
 }
 
-// 30 Days Forecast (OpenWeather Free provides 5 days / 3 hour forecast)
+// ৯. ৫ দিনের ফোরকাস্ট (ফ্রি ভার্সন অনুযায়ী)
 async function fetch30Days(lat, lon) {
   const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
   try {
@@ -169,19 +148,17 @@ async function fetch30Days(lat, lon) {
   }
 }
 
-// Mini Map
+// ১০. মিনি ম্যাপ আপডেট
 function updateMiniMap(lat, lon) {
-  // Using a simplified Google Maps embed or similar can work here
-  miniMap.src = `https://www.google.com/maps?q=${lat},${lon}&output=embed`;
+  miniMap.src = `https://maps.google.com/maps?q=${lat},${lon}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
 }
 
-// Theme Switch
+// ১১. থিম পরিবর্তন
 function changeTheme(color) {
   document.body.className = color;
 }
 
-// --- AUTO UPDATE LOGIC ---
-
+// ১২. অটো-আপডেট লজিক (প্রতি ১৫ মিনিটে একবার)
 setInterval(() => {
   const currentCity = document.getElementById('location').textContent.split(',')[0];
   if (currentCity && currentCity !== "Location") {
@@ -190,7 +167,7 @@ setInterval(() => {
   }
 }, 900000); 
 
-// Auto load Dhaka on start
+// ১৩. পেজ লোড হওয়ার সময় ঢাকাকে ডিফল্ট রাখা
 window.addEventListener('DOMContentLoaded', () => {
   searchInput.value = 'Dhaka';
   getWeather();
