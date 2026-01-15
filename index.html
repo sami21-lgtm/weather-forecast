@@ -30,22 +30,22 @@
     </div>
   </div>
 
-  <div class="top-bar">
-    <div class="logo-area">
-      <i class="fas fa-globe-americas globe"></i>
-      <div class="man-icon" id="manIcon" title="Click me!">
-        <i class="fas fa-male man"></i>
-        <i class="fas fa-umbrella umbrella"></i>
-      </div>
-      <span class="logo-text">Weather Globe</span>
+  <!-- Globe + Man + Logo – উপরে উঠানো (Globe-র মতো) -->
+  <div class="globe-section">
+    <i class="fas fa-globe-americas globe"></i>
+    <div class="man-icon" id="manIcon" title="Click me!">
+      <i class="fas fa-male man"></i>
+      <i class="fas fa-umbrella umbrella"></i>
     </div>
+    <span class="logo-text">Weather Globe</span>
+  </div>
 
-    <div class="controls">
-      <input type="text" id="searchInput" placeholder="City / Area..." />
-      <button onclick="getWeather()"><i class="fas fa-search"></i></button>
-      <button class="voice-btn" onclick="startVoiceSearch()"><i class="fas fa-microphone"></i></button>
-      <button class="location-btn" onclick="getLocationWeather()"><i class="fas fa-location-arrow"></i></button>
-    </div>
+  <!-- Search + Voice + Location – উপরে উঠানো (Globe-র মতো) -->
+  <div class="search-globe-bar">
+    <input type="text" id="searchInput" placeholder="City / Area..." />
+    <button onclick="getWeather()" title="Search"><i class="fas fa-search"></i></button>
+    <button class="voice-btn" onclick="startVoiceSearch()" title="Voice"><i class="fas fa-microphone"></i></button>
+    <button class="location-btn" onclick="getLocationWeather()" title="Location"><i class="fas fa-location-arrow"></i></button>
   </div>
 
   <div class="main-grid">
@@ -70,7 +70,7 @@
 
       <div class="map-box">
         <h3>Map</h3>
-        <iframe id="miniMap" src="" width="100%" height="240" style="border:0;border-radius:12px;" allowfullscreen loading="lazy"></iframe>
+        <iframe id="miniMap" src="" width="100%" height="260" style="border:0;border-radius:14px;" allowfullscreen loading="lazy"></iframe>
       </div>
     </div>
   </div>
