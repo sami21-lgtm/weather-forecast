@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather Globe</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body>
+  <div class="container">
+    <div class="glass">
+      <div class="header">
+        <i class="fas fa-globe-americas globe"></i>
+        <div class="man-icon" id="manIcon" title="Click me!">
+          <i class="fas fa-male man"></i>
+          <i class="fas fa-umbrella umbrella"></i>
+        </div>
+        <h1>Weather Globe</h1>
+        <button id="themeToggle" class="theme-btn"><i class="fas fa-moon"></i></button>
+      </div>
+
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Type city or state..." />
+        <button onclick="getWeather()"><i class="fas fa-search"></i></button>
+        <button onclick="startVoiceSearch()" class="voice-btn"><i class="fas fa-microphone"></i></button>
+        <button onclick="getLocationWeather()" class="location-btn"><i class="fas fa-location-arrow"></i></button>
+      </div>
+
+      <div id="weatherResult" class="weather-info hidden">
+        <h2 id="location"></h2>
+        <div class="temp">
+          <img id="icon" src="" alt="icon" />
+          <span id="temperature"></span>
+        </div>
+        <p id="description"></p>
+        <p id="details"></p>
+      </div>
+
+      <div id="forecast" class="forecast hidden">
+        <h3>5-Day Forecast</h3>
+        <div id="forecastList" class="forecast-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
