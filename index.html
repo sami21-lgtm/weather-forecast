@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Weather Globe - Full Screen</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
 </head>
 <body>
@@ -21,7 +21,7 @@
     </div>
 
     <div class="controls">
-      <input type="text" id="searchInput" placeholder="City name..." />
+      <input type="text" id="searchInput" placeholder="City, State, Country..." />
       <button onclick="getWeather()"><i class="fas fa-search"></i></button>
       <button class="voice-btn" onclick="startVoiceSearch()"><i class="fas fa-microphone"></i></button>
       <button class="location-btn" onclick="getLocationWeather()"><i class="fas fa-location-arrow"></i></button>
@@ -38,6 +38,12 @@
       </div>
       <p id="description">--</p>
       <p id="details">--</p>
+
+      <!-- Sun & Moon -->
+      <div class="sun-moon-box">
+        <h3>Sun & Moon</h3>
+        <div id="sunMoon" class="sun-moon-content"></div>
+      </div>
     </div>
 
     <div class="glass forecast-30day">
@@ -46,8 +52,8 @@
     </div>
   </div>
 
-  <div class="bottom-bar">
-    <span>Last auto-update: <span id="lastUpdate">--</span></span>
+  <div class="footer">
+    Developed by <strong>Emtiaz Hossain Sami</strong>
   </div>
 
   <script src="script.js"></script>
