@@ -1,8 +1,6 @@
-
 const API_KEY = 'a583481b0d44a588d10f31b85e1a5df6'; // Replace
 const searchInput = document.getElementById('searchInput');
 const themeToggle = document.getElementById('themeToggle');
-const lastUpdateSpan = document.getElementById('lastUpdate');
 const manIcon = document.getElementById('manIcon');
 
 // Theme
@@ -55,14 +53,18 @@ async function fetchWeatherByCity(city) {
   if (data.cod !== 200) return alert('City not found');
   displayCurrent(data);
   const { lat, lon } = data.coord;
+  fetchSunMoon(lat, lon);
   fetch30Days(lat, lon);
+  notifyIfChanged(data);
 }
 
 async function fetchWeatherByCoords(lat, lon) {
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
   const res = await fetch(url); const data = await res.json();
   displayCurrent(data);
+  fetchSunMoon(lat, lon);
   fetch30Days(lat, lon);
+  notifyIfChanged(data);
 }
 
 function displayCurrent(data) {
@@ -71,6 +73,46 @@ function displayCurrent(data) {
   document.getElementById('description').textContent = data.weather[0].description;
   document.getElementById('icon').src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
   document.getElementById('details').textContent = `Feels like ${Math.round(data.main.feels_like)}°C • Humidity ${data.main.humidity}%`;
+}
+
+// Sun/Moon + Night Mode Auto
+async function fetchSunMoon(lat, lon) {
+  const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&units=metric&appid=${API_KEY}`;
+  const res = await fetch(url); const data = await res.json();
+  displaySunMoon(data);
+  applyNightMode(data);
+}
+
+function displaySunMoon(data) {
+  const sunrise = new Date(data.current.sunrise * 1000).toLocaleTimeString();
+  const sunset = new Date(data.current.sunset * 1000).toLocaleTimeString();
+  const moonPhase = data.daily[0].moon_phase;
+  let moonIcon = 'fa-moon';
+  if (moonPhase < 0.25) moonIcon = 'fa-moon';
+  else if (moonPhase < 0.5) moonIcon = 'fa-moon';
+  else if (moonPhase < 0.75) moonIcon = 'fa-moon';
+  else moonIcon = 'fa-moon';
+
+  document.getElementById('sunMoon').innerHTML = `
+    <div>
+      <i class="fas fa-sun"></i>
+      <div>Sunrise: ${sunrise}</div>
+      <div>Sunset: ${sunset}</div>
+    </div>
+    <div>
+      <i class="fas ${moonIcon}"></i>
+      <div>Moon: ${Math.round(moonPhase * 100)}%</div>
+    </div>
+  `;
+}
+
+function applyNightMode(data) {
+  const now = Date.now() / 1000;
+  const isNight = now > data.current.sunset || now < data.current.sunrise;
+  if (isNight && !document.body.classList.contains('dark')) {
+    document.body.classList.add('dark');
+    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+  }
 }
 
 // 30-Day Forecast
@@ -95,15 +137,30 @@ async function fetch30Days(lat, lon) {
   document.getElementById('forecast30').innerHTML = html;
 }
 
+// Browser Notification
+let lastWeather = '';
+function notifyIfChanged(data) {
+  if ('Notification' in window && Notification.permission === 'granted') {
+    const current = data.weather[0].main;
+    if (lastWeather && lastWeather !== current) {
+      new Notification('Weather Updated', {
+        body: `Weather changed to ${current} in ${data.name}`,
+        icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`
+      });
+    }
+    lastWeather = current;
+  } else {
+    Notification.requestPermission();
+  }
+}
+
 // Auto-update every 10 min
 setInterval(() => {
   const city = searchInput.value || 'Dhaka';
   fetchWeatherByCity(city);
-  lastUpdateSpan.textContent = new Date().toLocaleTimeString();
 }, 10 * 60 * 1000);
 
 // Init
 window.addEventListener('DOMContentLoaded', () => {
   getLocationWeather();
-  lastUpdateSpan.textContent = new Date().toLocaleTimeString();
 });
