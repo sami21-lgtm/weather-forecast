@@ -1,4 +1,4 @@
-const API_KEY = 'YOUR_OPENWEATHER_API_KEY'; // Replace
+const API_KEY = 'a583481b0d44a588d10f31b85e1a5df6';
 const searchInput = document.getElementById('searchInput');
 const themeToggle = document.getElementById('themeToggle');
 const manIcon = document.getElementById('manIcon');
@@ -20,7 +20,7 @@ themeToggle.addEventListener('click', () => {
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
 });
 
-// Man click effect
+// Man click
 manIcon.addEventListener('click', () => {
   manIcon.classList.add('clicked');
   setTimeout(() => manIcon.classList.remove('clicked'), 500);
@@ -61,7 +61,7 @@ function getWeather() {
   fetchWeatherByCity(city);
 }
 
-// Fetch current + 30-day
+// Fetch
 async function fetchWeatherByCity(city) {
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`;
   const res = await fetch(url); const data = await res.json();
@@ -71,7 +71,6 @@ async function fetchWeatherByCity(city) {
   fetchSunMoon(lat, lon);
   fetch30Days(lat, lon);
   updateMiniMap(lat, lon);
-  notifyIfChanged(data);
 }
 
 async function fetchWeatherByCoords(lat, lon) {
@@ -81,7 +80,6 @@ async function fetchWeatherByCoords(lat, lon) {
   fetchSunMoon(lat, lon);
   fetch30Days(lat, lon);
   updateMiniMap(lat, lon);
-  notifyIfChanged(data);
 }
 
 function displayCurrent(data) {
@@ -92,12 +90,11 @@ function displayCurrent(data) {
   document.getElementById('details').textContent = `Feels like ${Math.round(data.main.feels_like)}°C • Humidity ${data.main.humidity}%`;
 }
 
-// Sun/Moon + Night Mode Auto
+// Sun/Moon Icon
 async function fetchSunMoon(lat, lon) {
   const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&units=metric&appid=${API_KEY}`;
   const res = await fetch(url); const data = await res.json();
   updateSunMoonIcon(data);
-  applyNightMode(data);
 }
 
 function updateSunMoonIcon(data) {
@@ -106,16 +103,7 @@ function updateSunMoonIcon(data) {
   sunMoonIcon.textContent = isDay ? '🌞' : '🌙';
 }
 
-function applyNightMode(data) {
-  const now = Date.now() / 1000;
-  const isNight = now > data.current.sunset || now < data.current.sunrise;
-  if (isNight && !document.body.classList.contains('dark')) {
-    document.body.classList.add('dark');
-    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-  }
-}
-
-// 30-Day Forecast
+// 30-Day
 async function fetch30Days(lat, lon) {
   const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
   const res = await fetch(url); const data = await res.json();
@@ -141,23 +129,6 @@ async function fetch30Days(lat, lon) {
 function updateMiniMap(lat, lon) {
   const src = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.904745562371!2d${lon}!3d${lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z${lat}!3m2!1sen!2sbd!4v${Date.now()}`;
   miniMap.src = src;
-}
-
-// Browser Notification
-let lastWeather = '';
-function notifyIfChanged(data) {
-  if ('Notification' in window && Notification.permission === 'granted') {
-    const current = data.weather[0].main;
-    if (lastWeather && lastWeather !== current) {
-      new Notification('Weather Updated', {
-        body: `Weather changed to ${current} in ${data.name}`,
-        icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`
-      });
-    }
-    lastWeather = current;
-  } else {
-    Notification.requestPermission();
-  }
 }
 
 // Auto-update every 10 min
