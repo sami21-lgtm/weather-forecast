@@ -1,76 +1,17 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ---------- RESET ---------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100vw; min-height: 100vh; overflow-x: hidden; font-family: 'Segoe UI', sans-serif; color: #fff; transition: background 0.3s ease; }
 
-html, body {
-  width: 100vw;
-  min-height: 100vh;
-  overflow-x: hidden;
-  font-family: 'Segoe UI', sans-serif;
-  color: #fff;
-  transition: background 0.3s ease;
-}
-
-/* কালার থিম ভেরিয়েবল */
-:root {
-  --rainbow: linear-gradient(45deg, #ff0080, #ff8c00, #ffd700, #00ff80, #0080ff, #8000ff, #ff0080);
-  --blue: linear-gradient(135deg, #74ebd5, #ACB6E5);
-  --pink: linear-gradient(135deg, #ff6ec4, #7873f5);
-  --green: linear-gradient(135deg, #11998e, #38ef7d);
-  --gold: linear-gradient(135deg, #f2994a, #f2c94c);
-  --red: linear-gradient(135deg, #eb3349, #f45c43);
-  --purple: linear-gradient(135deg, #667eea, #764ba2);
-}
-
+/* ---------- BACKGROUND ---------- */
 .bg-cover {
   position: fixed;
   inset: 0;
-  background: var(--rainbow);
-  background-size: 400% 400%;
+  background: url('590767156_860519166891739_2633869132777924248_n.jpg') center/cover no-repeat;
+  filter: brightness(0.7);
   z-index: -2;
-  animation: rainbow 15s ease infinite;
 }
 
-@keyframes rainbow {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-body.dark .bg-cover {
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  animation: none;
-}
-
-/* কালার পিকার */
-.color-picker {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  z-index: 100;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 5px 8px;
-  border-radius: 20px;
-  backdrop-filter: blur(5px);
-}
-
-.color-picker label {
-  margin-right: 5px;
-  font-size: 12px;
-}
-
-.color-picker select {
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-  border: none;
-  border-radius: 15px;
-  padding: 4px 8px;
-  outline: none;
-  font-size: 12px;
-}
-
+/* ---------- TOP BAR ---------- */
 .top-bar {
   position: fixed;
   top: 0;
@@ -125,8 +66,9 @@ body.dark .bg-cover {
   animation: bounce 2s infinite;
 }
 
-body.dark .man {
-  color: #ffd700;
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
 }
 
 .umbrella {
@@ -136,15 +78,6 @@ body.dark .man {
   transform: translateX(-50%);
   font-size: 20px;
   color: #ff4081;
-}
-
-body.dark .umbrella {
-  color: #ff80ab;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-8px); }
 }
 
 .logo-text {
@@ -178,6 +111,32 @@ body.dark .umbrella {
   font-size: 14px;
 }
 
+/* ---------- RAINBOW SELECTOR NEXT TO VOICE ---------- */
+.color-picker {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(0,0,0,0.3);
+  padding: 4px 8px;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+}
+
+.color-picker label {
+  font-size: 14px;
+}
+
+.color-picker select {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  border: none;
+  border-radius: 15px;
+  padding: 4px 8px;
+  outline: none;
+  font-size: 12px;
+}
+
+/* ---------- MAIN GRID ---------- */
 .main-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
