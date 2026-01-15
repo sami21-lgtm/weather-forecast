@@ -21,14 +21,14 @@ function toggleDarkLight() {
   }
 }
 
-// Time & Date
+// Time & Date + Auto Sun/Moon
 function updateDateTime() {
   const now = new Date();
   digitalTime.textContent = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true });
   digitalDate.textContent = now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
   currentYear.textContent = now.getFullYear();
 
-  // Sun/Moon Icon
+  // Auto Sun/Moon
   const hour = now.getHours();
   sunMoonIcon.textContent = (hour >= 6 && hour < 18) ? '🌞' : '🌙';
 }
